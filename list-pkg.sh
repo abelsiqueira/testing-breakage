@@ -3,9 +3,10 @@
 echo "| Package name | master | stable |"
 echo "|--|--|--|"
 count=0
-for file in *
+for file in pr/*
 do
-  [ "$file" == "list-pkg.sh" ] && continue
+  [ "$file" == "PR" ] && continue
+  [ "$file" == "MSG" ] && continue
   if [ $count == "0" ]; then
     name=$(echo $file | cut -f1 -d-)
     echo -n "| $name | "
