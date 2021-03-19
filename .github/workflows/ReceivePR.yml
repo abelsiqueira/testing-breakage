@@ -46,25 +46,25 @@ jobs:
           mkdir -p ./pr
           echo "${{ github.event.number }}" > ./pr/NR
           git clone https://github.com/$URL
-          PKG=$(echo $URL | cut -f2 -d/)
+          export PKG=$(echo $URL | cut -f2 -d/)
           cd $PKG
           if [ $VERSION == "stable" ]; then
             TAG=$(git tag -l "v*" --sort=-creatordate | head -n1)
             git checkout $TAG
           fi
           julia -e 'using Pkg;
-          PKG = ENV["PKG"]
-          try
-            pkg"activate .";
-            pkg"instantiate";
-            pkg"dev ../";
-            pkg"build";
-            pkg"test";
-            print("![](https://img.shields.io/badge/$PKG-Pass-green)");
-          catch e
-            @error e;
-            print("![](https://img.shields.io/badge/$PKG-Fail-red)");
-          end' > ../pr/$PKG-$VERSION
+            PKG = ENV["PKG"]
+            try
+              pkg"activate .";
+              pkg"instantiate";
+              pkg"dev ../";
+              pkg"build";
+              pkg"test";
+              print("![](https://img.shields.io/badge/$PKG-Pass-green)");
+            catch e
+              @error e;
+              print("![](https://img.shields.io/badge/$PKG-Fail-red)");
+            end' > ../pr/$PKG-$VERSION
 
       - uses: actions/upload-artifact@v2
         with:
