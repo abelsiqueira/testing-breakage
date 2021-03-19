@@ -29,17 +29,20 @@ jobs:
           mkdir -p ./pr
           echo "![](https://img.shields.io/badge/$PKG-Pass-green)" > ./pr/$PKG-$VERSION
 
-      - name: Cache
-        uses: actions/cache@v2
+      - uses: actions/upload-artifact@v2
         with:
-          path: ./pr
-          key: pr-folder
+          name: pr
+          path: pr/
 
   upload:
     needs: break
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: pr
 
       - run: ls
       - run: bash list-pkg.sh > pr/MSG
