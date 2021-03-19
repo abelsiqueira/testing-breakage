@@ -6,8 +6,12 @@ on:
   pull_request:
 
 jobs:
-  build:
+  break:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        pkg: [NLPModelsModifiers, NLPModelsIpopt]
 
     steps:
       - uses: actions/checkout@v2
@@ -17,10 +21,12 @@ jobs:
         run: echo "Building"
 
       - name: Save PR number
+        env:
+          PKG: ${{ matrix.pkg }}
         run: |
           mkdir -p ./pr
           echo "${{ github.event.number }}" > ./pr/NR
-          echo "Abel here" > ./pr/MSG
+          echo "package: $PKG" > ./pr/$PKG
       - uses: actions/upload-artifact@v2
         with:
           name: pr

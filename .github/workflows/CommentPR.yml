@@ -37,6 +37,8 @@ jobs:
             fs.writeFileSync('${{github.workspace}}/pr.zip', Buffer.from(download.data));
       - run: unzip pr.zip
 
+      - name: Create message
+        run: bash list-pkg.sh > MSG
       - name: 'Comment on PR'
         uses: actions/github-script@v3
         with:
@@ -49,5 +51,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: issue_number,
-              body: 'Everything is OK. Thank you for the PR! Msg:' + msg
+              body: MSG
             });
