@@ -58,7 +58,7 @@ jobs:
             pkg"instantiate";
             pkg"dev ../";
             pkg"build";
-            pkg"test"';
+            pkg"test";
             print("![](https://img.shields.io/badge/$PKG-Pass-green)");
           catch e
             @error e;
