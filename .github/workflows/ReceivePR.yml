@@ -12,6 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         pkg: [NLPModelsModifiers, NLPModelsIpopt]
+        pkgversion: [master, stable]
 
     steps:
       - uses: actions/checkout@v2
@@ -23,10 +24,12 @@ jobs:
       - name: Save PR number
         env:
           PKG: ${{ matrix.pkg }}
+          VERSION: ${{ matrix.pkgversion }}
         run: |
           mkdir -p ./pr
           echo "${{ github.event.number }}" > ./pr/NR
-          echo "package: $PKG" > ./pr/$PKG
+          echo "![](https://img.shields.io/badge/$PKG-Pass-green)" > ./pr/$PKG-$PKGVERSION
+
       - uses: actions/upload-artifact@v2
         with:
           name: pr
