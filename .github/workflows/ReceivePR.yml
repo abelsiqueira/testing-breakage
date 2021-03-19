@@ -31,6 +31,7 @@ jobs:
           echo "![](https://img.shields.io/badge/$PKG-Pass-green)" > ./pr/$PKG-$VERSION
 
   upload:
+    needs: break
     runs-on: ubuntu-latest
     steps:
       - run: bash list-pkg.sh > ./pr/MSG
