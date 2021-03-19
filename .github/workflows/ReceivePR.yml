@@ -29,6 +29,11 @@ jobs:
           mkdir -p ./pr
           echo "${{ github.event.number }}" > ./pr/NR
           echo "![](https://img.shields.io/badge/$PKG-Pass-green)" > ./pr/$PKG-$VERSION
+  message:
+    runs-on: ubuntu-latest
+    needs: break
+    steps:
+      - run: bash list-pkg.sh > ./pr/MSG
 
       - uses: actions/upload-artifact@v2
         with:
