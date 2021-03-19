@@ -28,7 +28,7 @@ jobs:
         run: |
           mkdir -p ./pr
           echo "${{ github.event.number }}" > ./pr/NR
-          echo "![](https://img.shields.io/badge/$PKG-Pass-green)" > ./pr/$PKG-$PKGVERSION
+          echo "![](https://img.shields.io/badge/$PKG-Pass-green)" > ./pr/$PKG-$VERSION
 
       - uses: actions/upload-artifact@v2
         with:
