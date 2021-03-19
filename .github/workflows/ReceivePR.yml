@@ -19,6 +19,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
       # Install Julia
       - uses: julia-actions/setup-julia@v1
         with:
@@ -56,8 +57,6 @@ jobs:
             PKG, VERSION = ENV["PKG"], ENV["VERSION"]
             passing = false
             try
-              passing = rand([false, true]) # DEBUG
-              error("DEBUG")
               pkg"activate .";
               pkg"instantiate";
               pkg"dev ../";
@@ -89,7 +88,30 @@ jobs:
           path: pr/
 
       - run: ls
-      - run: bash list-pkg.sh > pr/MSG
+      - run: |
+          cd pr
+          echo "| Package name | master | stable |" > pr/MSG
+          echo "|--|--|--|" >> pr/MSG
+          count=0
+          for file in *
+          do
+            [ "$file" == "NR" ] && continue
+            [ "$file" == "MSG" ] && continue
+            if [ $count == "0" ]; then
+              name=$(echo $file | cut -f1 -d-)
+              echo -n "| $name | "
+            else
+              echo -n "| "
+            fi
+            cat $file
+            if [ $count == "0" ]; then
+              echo -n " "
+              count=1
+            else
+              echo " |"
+              count=0
+            fi
+          done >> pr/MSG
 
       - uses: actions/upload-artifact@v2
         with:
