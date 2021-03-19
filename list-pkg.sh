@@ -1,12 +1,12 @@
 #!/bin/bash
 
+cd pr
 echo "| Package name | master | stable |"
 echo "|--|--|--|"
 count=0
-for file in pr/*
+for file in *
 do
-  [ "$file" == "pr/PR" ] && continue
-  [ "$file" == "pr/MSG" ] && continue
+  [ "$file" == "NR" ] && continue
   if [ $count == "0" ]; then
     name=$(echo $file | cut -f1 -d-)
     echo -n "| $name | "
@@ -22,3 +22,4 @@ do
     count=0
   fi
 done
+cd ..
