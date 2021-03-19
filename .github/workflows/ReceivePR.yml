@@ -12,8 +12,8 @@ jobs:
       fail-fast: false
       matrix:
         pkg: [
-          "JuliaSmoothOptimizers/NLPModelsModifiers",
-          "JuliaSmoothOptimizers/NLPModelsIpopt"
+          "JuliaSmoothOptimizers/NLPModelsModifiers.jl",
+          "JuliaSmoothOptimizers/NLPModelsIpopt.jl"
         ]
         pkgversion: [master, stable]
 
@@ -42,6 +42,7 @@ jobs:
           URL: ${{ matrix.pkg }}
           VERSION: ${{ matrix.pkgversion }}
         run: |
+          set -v
           mkdir -p ./pr
           echo "${{ github.event.number }}" > ./pr/NR
           git clone $URL
