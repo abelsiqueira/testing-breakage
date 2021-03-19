@@ -7,6 +7,7 @@ count=0
 for file in *
 do
   [ "$file" == "NR" ] && continue
+  [ "$file" == "MSG" ] && continue
   if [ $count == "0" ]; then
     name=$(echo $file | cut -f1 -d-)
     echo -n "| $name | "
