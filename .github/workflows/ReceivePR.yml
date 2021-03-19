@@ -53,6 +53,7 @@ jobs:
             git checkout $TAG
           fi
           julia -e 'using Pkg;
+          PKG = ENV["PKG"]
           try
             pkg"activate .";
             pkg"instantiate";
