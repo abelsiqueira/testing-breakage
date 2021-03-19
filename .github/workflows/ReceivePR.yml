@@ -39,6 +39,8 @@ jobs:
     needs: break
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+
       - run: ls
       - run: bash list-pkg.sh > pr/MSG
 
