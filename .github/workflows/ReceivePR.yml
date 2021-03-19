@@ -90,8 +90,8 @@ jobs:
       - run: ls
       - run: |
           cd pr
-          echo "| Package name | master | stable |" > pr/MSG
-          echo "|--|--|--|" >> pr/MSG
+          echo "| Package name | master | stable |" > MSG
+          echo "|--|--|--|" >> MSG
           count=0
           for file in *
           do
@@ -111,7 +111,7 @@ jobs:
               echo " |"
               count=0
             fi
-          done >> pr/MSG
+          done >> MSG
 
       - uses: actions/upload-artifact@v2
         with:
