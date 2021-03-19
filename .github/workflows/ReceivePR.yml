@@ -53,17 +53,23 @@ jobs:
             git checkout $TAG
           fi
           julia -e 'using Pkg;
-            PKG = ENV["PKG"]
+            PKG, VERSION = ENV["PKG"], ENV["VERSION"]
+            passing = false
             try
+              passing = rand([false, true]) # DEBUG
+              error("DEBUG")
               pkg"activate .";
               pkg"instantiate";
               pkg"dev ../";
               pkg"build";
               pkg"test";
-              print("![](https://img.shields.io/badge/$PKG-Pass-green)");
+              passing = true
             catch e
               @error e;
-              print("![](https://img.shields.io/badge/$PKG-Fail-red)");
+            end;
+            open("../pr/$PKG-$VERSION", "w") do io
+              str = passing ? "Pass-green" : "Fail-red";
+              print(io, "![](https://img.shields.io/badge/$PKG-$str)");
             end' > ../pr/$PKG-$VERSION
 
       - uses: actions/upload-artifact@v2
