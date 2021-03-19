@@ -39,7 +39,7 @@ jobs:
 
       - name: Create message
         env:
-          PWDPATH: process.env.GITHUB_WORKSPACE
+          PWDPATH: ${{ process.env.GITHUB_WORKSPACE }}
         run: bash $PWDPATH/list-pkg.sh > MSG
 
       - name: 'Comment on PR'
