@@ -55,21 +55,19 @@ jobs:
           fi
           julia -e 'using Pkg;
             PKG, VERSION = ENV["PKG"], ENV["VERSION"]
-            passing = false
-            try
-              pkg"activate .";
-              pkg"instantiate";
-              pkg"dev ../";
-              pkg"build";
-              pkg"test";
-              passing = true
-            catch e
-              @error e;
-            end;
             open("../pr/$PKG-$VERSION", "w") do io
-              str = passing ? "Pass-green" : "Fail-red";
-              print(io, "![](https://img.shields.io/badge/$PKG-$str)");
-            end' > ../pr/$PKG-$VERSION
+              try
+                pkg"activate .";
+                pkg"instantiate";
+                pkg"dev ../";
+                pkg"build";
+                pkg"test";
+                print(io, "![](https://img.shields.io/badge/$PKG-Pass-green)");
+              catch e
+                @error e;
+                print(io, "![](https://img.shields.io/badge/$PKG-Fail-red)");
+              end;
+            end'
 
       - uses: actions/upload-artifact@v2
         with:
