@@ -63,7 +63,7 @@ jobs:
           catch e
             @error e;
             print("![](https://img.shields.io/badge/$PKG-Fail-red)");
-          end' > ./pr/$PKG-$VERSION
+          end' > ../pr/$PKG-$VERSION
 
       - uses: actions/upload-artifact@v2
         with:
