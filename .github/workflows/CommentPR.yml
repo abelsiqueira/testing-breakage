@@ -37,11 +37,6 @@ jobs:
             fs.writeFileSync('${{github.workspace}}/pr.zip', Buffer.from(download.data));
       - run: unzip pr.zip
 
-      - name: Create message
-        env:
-          PWDPATH: ${{ env.GITHUB_WORKSPACE }}
-        run: bash $PWDPATH/list-pkg.sh > MSG
-
       - name: 'Comment on PR'
         uses: actions/github-script@v3
         with:
