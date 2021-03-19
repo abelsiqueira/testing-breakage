@@ -5,8 +5,8 @@ echo "|--|--|--|"
 count=0
 for file in pr/*
 do
-  [ "$file" == "PR" ] && continue
-  [ "$file" == "MSG" ] && continue
+  [ "$file" == "pr/PR" ] && continue
+  [ "$file" == "pr/MSG" ] && continue
   if [ $count == "0" ]; then
     name=$(echo $file | cut -f1 -d-)
     echo -n "| $name | "
