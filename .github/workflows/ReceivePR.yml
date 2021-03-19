@@ -45,7 +45,7 @@ jobs:
           set -v
           mkdir -p ./pr
           echo "${{ github.event.number }}" > ./pr/NR
-          git clone $URL
+          git clone https://github.com/$URL
           PKG=$(echo $URL | cut -f2 -d/)
           cd $PKG
           if [ $VERSION == "stable" ]; then
