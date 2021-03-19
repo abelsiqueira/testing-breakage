@@ -38,7 +38,9 @@ jobs:
       - run: unzip pr.zip
 
       - name: Create message
-        run: bash ${process.env.GITHUB_WORKSPACE}/list-pkg.sh > MSG
+        env:
+          PWDPATH: process.env.GITHUB_WORKSPACE
+        run: bash $PWDPATH/list-pkg.sh > MSG
 
       - name: 'Comment on PR'
         uses: actions/github-script@v3
