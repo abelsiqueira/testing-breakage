@@ -59,10 +59,10 @@ jobs:
             pkg"dev ../";
             pkg"build";
             pkg"test"';
-            print("![](https://img.shields.io/badge/$PKG-Pass-green)")
+            print("![](https://img.shields.io/badge/$PKG-Pass-green)");
           catch e
-            @error e
-            print("![](https://img.shields.io/badge/$PKG-Fail-red)")
+            @error e;
+            print("![](https://img.shields.io/badge/$PKG-Fail-red)");
           end' > ./pr/$PKG-$VERSION
 
       - uses: actions/upload-artifact@v2
